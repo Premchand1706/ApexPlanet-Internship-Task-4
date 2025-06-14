@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Combined Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --dark-color: #1b263b;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --warning-color: #f8961e;
+            --info-color: #43aa8b;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #d11a6a;
+            transform: translateY(-2px);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: var(--accent-color); }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        .nav-menu li { margin-left: 2rem; }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-menu a:hover { color: var(--accent-color); }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        main { margin-top: 80px; padding: 2rem 0; }
+        section { padding: 4rem 0; }
+        #portfolio { background-color: white; }
+        .portfolio-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .portfolio-nav a {
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        .portfolio-nav a:hover,
+        .portfolio-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .profile-img:hover { transform: scale(1.02); }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .skill {
+            background-color: var(--light-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .project-info { padding: 1.5rem; }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .project-tag {
+            background-color: var(--light-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        #todo-app { background-color: var(--light-color); }
+        .todo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        .todo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .input-section {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        #todo-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        #todo-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        #add-btn {
+            padding: 0 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        #add-btn:hover { background-color: var(--secondary-color); }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .filter-btn:hover:not(.active) { background-color: #e9ecef; }
+        #todo-list { list-style: none; }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease;
+        }
+        .todo-item:hover { background-color: #f8f9fa; }
+        .todo-checkbox {
+            margin-right: 1rem;
+            cursor: pointer;
+            transform: scale(1.3);
+        }
+        .todo-text {
+            flex: 1;
+            word-break: break-word;
+        }
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            margin-left: 1rem;
+        }
+        .delete-btn:hover {
+            color: #d11a6a;
+            transform: scale(1.2);
+        }
+        #product-listing { background-color: white; }
+        .products-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .filter-section, .sort-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            flex: 1;
+            min-width: 300px;
+        }
+        .filter-section h3, .sort-section h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .price-range { margin-top: 1.5rem; }
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        #price-slider {
+            width: 100%;
+            margin: 0.5rem 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+        #price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        #price-slider::-webkit-slider-thumb:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+            transition: var(--transition);
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--danger-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        .product-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        .product-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        .product-card:hover .product-actions {
+            transform: translateY(0);
+        }
+        .action-btn {
+            background: white;
+            color: var(--dark-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .product-info { padding: 1.5rem; }
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .product-price {
+            font-weight: bold;
+            color: var(--danger-color);
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .product-rating {
+            color: var(--warning-color);
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+        .product-rating .reviews {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+        .product-category {
+            display: inline-block;
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        .social-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        .copyright {
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse { animation: pulse 2s infinite; }
+        @media (max-width: 992px) {
+            .about-content { grid-template-columns: 1fr; }
+            .profile-img { margin: 0 auto; }
+        }
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--dark-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-menu.active { left: 0; }
+            .nav-menu li { margin: 1rem 0; }
+            .section-title { font-size: 2rem; }
+            .controls { flex-direction: column; }
+            .filter-section, .sort-section { width: 100%; }
+        }
+        @media (max-width: 576px) {
+            .section-title { font-size: 1.8rem; }
+            .btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .todo-item { padding: 0.8rem; }
+            .todo-checkbox { transform: scale(1); margin-right: 0.8rem; }
+            .delete-btn { font-size: 1rem; }
+        }
+                // ...existing code...
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(120deg, #f8f9fa 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            transition: background 1s cubic-bezier(0.4,0,0.2,1);
+            overflow-x: hidden;
+            /* Add animated background overlay */
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, #a5b4fc 0%, transparent 60%),
+                        radial-gradient(circle at 80% 70%, #fbc2eb 0%, transparent 60%),
+                        radial-gradient(circle at 50% 90%, #b9fbc0 0%, transparent 60%);
+            opacity: 0.5;
+            animation: bgMove 12s linear infinite alternate;
+        }
+        @keyframes bgMove {
+            0% {
+                background-position: 20% 30%, 80% 70%, 50% 90%;
+            }
+            100% {
+                background-position: 40% 10%, 60% 90%, 70% 60%;
+            }
+        }
+        
+        /* Add a button for background color theme toggle */
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 2000;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .theme-toggle-btn:hover {
+            background: var(--accent-color);
+            transform: scale(1.08) rotate(10deg);
+        }
+        
+        /* Add more advanced glassmorphism effect to containers */
+        .container,
+        .todo-container,
+        .contact-form,
+        .filter-section,
+        .sort-section {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px) saturate(120%);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.15);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 18px;
+            transition: background 0.5s;
+        }
+        
+        /* Add animated gradient border to section titles */
+        .section-title {
+            position: relative;
+            background: linear-gradient(90deg, #4361ee, #f72585, #43aa8b, #f8961e);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 4s ease-in-out infinite;
+        }
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Add floating animated shapes */
+        .floating-shape {
+            position: fixed;
+            z-index: 0;
+            opacity: 0.18;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: floatShape 8s ease-in-out infinite alternate;
+        }
+        .floating-shape.shape1 {
+            width: 180px; height: 180px; background: #4361ee;
+            top: 10%; left: 5%;
+            animation-delay: 0s;
+        }
+        .floating-shape.shape2 {
+            width: 120px; height: 120px; background: #f72585;
+            bottom: 15%; right: 8%;
+            animation-delay: 2s;
+        }
+        .floating-shape.shape3 {
+            width: 90px; height: 90px; background: #43aa8b;
+            top: 60%; left: 80%;
+            animation-delay: 4s;
+        }
+        @keyframes floatShape {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.1); }
+        }
+        // ...existing code...
+    </style>
+</head>
+<body>
+        <!-- Floating shapes for animated background -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+    <!-- Theme toggle button -->
+    <button class="theme-toggle-btn" id="theme-toggle" title="Toggle background"><i class="fas fa-adjust"></i></button>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Portfo<span>lio</span></a>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#todo-app">Todo App</a></li>
+                    <li><a href="#product-listing">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="section-title">My Portfolio</h2>
+                <nav class="portfolio-nav">
+                    <a href="#about" class="active">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <div id="about">
+                    <div class="about-content">
+                        <img src="C:\Users\Hp\OneDrive\Desktop\my pic.jpg" alt="Profile Picture" class="profile-img">
+                        <div>
+                            <h3>About Me</h3>
+                            <p><strong></strong></p>
+                            <p>I'm Premchand, a passionate full-stack developer with experience building web applications.. I specialize in JavaScript technologies including React, Node.js, and Express. My goal is to create beautiful, functional, and user-friendly applications that solve real-world problems.</p>
+                            <p>When I'm not coding, you can find me hiking in the mountains, reading science fiction, or experimenting with new recipes in the kitchen.</p>
+                            <h4 style="margin-top: 1.5rem;">Skills</h4>
+                            <div class="skills-container">
+                                <span class="skill">HTML5</span>
+                                <span class="skill">CSS3</span>
+                                <span class="skill">JavaScript</span>
+                                <span class="skill">React</span>
+                                <span class="skill">Node.js</span>
+                                <span class="skill">Express</span>
+                                <span class="skill">MongoDB</span>
+                                <span class="skill">Git</span>
+                                <span class="skill">Responsive Design</span>
+                                <span class="skill">UI/UX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="projects" style="margin-top: 4rem;">
+                    <h3>My Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" alt="Project 1" class="project-img">
+                            <div class="project-info">
+                                <h4>E-commerce Platform</h4>
+                                <div class="project-tags">
+                                    <span class="project-tag">React</span>
+                                    <span class="project-tag">Node.js</span>
+                                    <span class="project-tag">MongoDB</span>
+                                </div>
+                                <p>A full-featured e-commerce platform with product listings, cart functionality, and secure checkout.</p>
+                                <a href="https://premchand1706.github.io/DailyHarvest/" class="btn btn-primary" style="margin-top: 1rem;" target="_blank">View Project</a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=400&q=80" alt="Project 2" class="project-img">
+                            <div class="project-info">
+                                <h4>Task Management App</h4>
+                                <div class="project-tags">
+                                    <span class="project-tag">Vue.js</span>
+                                    <span class="project-tag">Firebase</span>
+                                </div>
+                                <p>A collaborative task management application with real-time updates and team features.</p>
+                                <a href="#" class="btn btn-primary" style="margin-top: 1rem;">View Project</a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?auto=format&fit=crop&w=400&q=80" alt="Project 3" class="project-img">
+                            <div class="project-info">
+                                <h4>Health & Fitness Tracker</h4>
+                                <div class="project-tags">
+                                    <span class="project-tag">React Native</span>
+                                    <span class="project-tag">GraphQL</span>
+                                </div>
+                                <p>A mobile app for tracking workouts, nutrition, and health metrics with data visualization.</p>
+                                <a href="#" class="btn btn-primary" style="margin-top: 1rem;">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="contact" style="margin-top: 4rem;">
+                    <h3>Contact Me</h3>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Todo App Section -->
+        <section id="todo-app">
+            <div class="container">
+                <div class="todo-container">
+                    <div class="todo-header">
+                        <h2 class="section-title">Todo App</h2>
+                        <p>Organize your tasks and boost your productivity</p>
+                    </div>
+                    <div class="input-section">
+                        <input type="text" id="todo-input" placeholder="Add a new task..." autocomplete="off">
+                        <button id="add-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <ul id="todo-list"></ul>
+                </div>
+            </div>
+        </section>
+        <!-- Product Listing Section -->
+        <section id="product-listing">
+            <div class="container">
+                <div class="products-header">
+                    <h2 class="section-title">Product Listing</h2>
+                    <p>Browse our extensive catalog of products</p>
+                </div>
+                <div class="controls">
+                    <div class="filter-section">
+                        <h3>Filter by:</h3>
+                        <select id="category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="home">Home & Kitchen</option>
+                            <option value="books">Books</option>
+                            <option value="sports">Sports & Outdoors</option>
+                        </select>
+                        <div class="price-range">
+                            <h3>Price Range:</h3>
+                            <input type="range" id="price-slider" min="0" max="100000" value="100000" step="1000">
+                            <div class="price-display">
+                                <span>₹0</span>
+                                <span id="price-value">₹100,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sort-section">
+                        <h3>Sort by:</h3>
+                        <select id="sort-options">
+                            <option value="default">Default</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating">Rating</option>
+                            <option value="name-asc">Name: A-Z</option>
+                            <option value="name-desc">Name: Z-A</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="product-grid" class="product-grid"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2023 My Portfolio. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">Designed and developed with ❤️</p>
+        </div>
+    </footer>
+    <script>
+        // Navigation
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const portfolioNavLinks = document.querySelectorAll('.portfolio-nav a');
+        const contactForm = document.getElementById('contact-form');
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        portfolioNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                portfolioNavLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                showAlert('Message sent successfully!', 'success');
+                contactForm.reset();
+            } catch (error) {
+                showAlert('Failed to send message. Please try again.', 'error');
+            }
+        });
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.textContent = message;
+            alert.style.position = 'fixed';
+            alert.style.bottom = '20px';
+            alert.style.right = '20px';
+            alert.style.padding = '15px 25px';
+            alert.style.borderRadius = '5px';
+            alert.style.color = 'white';
+            alert.style.zIndex = '1000';
+            alert.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            alert.style.animation = 'fadeIn 0.3s ease';
+            alert.style.backgroundColor = type === 'success' ? '#4BB543' : '#FF3333';
+            document.body.appendChild(alert);
+            setTimeout(() => {
+                alert.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => { alert.remove(); }, 300);
+            }, 3000);
+        }
+        // Todo App
+        class TodoApp {
+            constructor() {
+                this.todos = JSON.parse(localStorage.getItem('todos')) || [];
+                this.currentFilter = 'all';
+                this.todoInput = document.getElementById('todo-input');
+                this.addBtn = document.getElementById('add-btn');
+                this.todoList = document.getElementById('todo-list');
+                this.filterBtns = document.querySelectorAll('#todo-app .filter-btn');
+                this.init();
+            }
+            init() {
+                this.renderTodos();
+                this.setupEventListeners();
+            }
+            setupEventListeners() {
+                this.addBtn.addEventListener('click', () => this.addTodo());
+                this.todoInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addTodo();
+                });
+                this.todoList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
+                        const btn = e.target.classList.contains('delete-btn') ? e.target : e.target.closest('.delete-btn');
+                        const index = btn.dataset.index;
+                        this.deleteTodo(index);
+                    }
+                    if (e.target.classList.contains('todo-checkbox')) {
+                        const index = e.target.dataset.index;
+                        this.toggleTodo(index);
+                    }
+                });
+                this.filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.filterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFilter = btn.dataset.filter;
+                        this.renderTodos();
+                    });
+                });
+            }
+            addTodo() {
+                const text = this.todoInput.value.trim();
+                if (text) {
+                    const newTodo = {
+                        id: Date.now(),
+                        text,
+                        completed: false,
+                        createdAt: new Date().toISOString()
+                    };
+                    this.todos.push(newTodo);
+                    this.saveTodos();
+                    this.todoInput.value = '';
+                    this.renderTodos();
+                    const lastTodo = this.todoList.lastChild;
+                    if (lastTodo) lastTodo.style.animation = 'fadeIn 0.3s ease';
+                }
+            }
+            deleteTodo(index) {
+                const filteredTodos = this.todos.filter(todo => {
+                    if (this.currentFilter === 'active') return !todo.completed;
+                    if (this.currentFilter === 'completed') return todo.completed;
+                    return true;
+                });
+                const todoToDelete = filteredTodos[index];
+                this.todos = this.todos.filter(todo => todo.id !== todoToDelete.id);
+                this.saveTodos();
+                this.renderTodos();
+            }
+            toggleTodo(index) {
+                const filteredTodos = this.todos.filter(todo => {
+                    if (this.currentFilter === 'active') return !todo.completed;
+                    if (this.currentFilter === 'completed') return todo.completed;
+                    return true;
+                });
+                const todoToToggle = filteredTodos[index];
+                const todoIndex = this.todos.findIndex(todo => todo.id === todoToToggle.id);
+                if (todoIndex !== -1) {
+                    this.todos[todoIndex].completed = !this.todos[todoIndex].completed;
+                    this.saveTodos();
+                    this.renderTodos();
+                }
+            }
+            saveTodos() {
+                localStorage.setItem('todos', JSON.stringify(this.todos));
+            }
+            renderTodos() {
+                this.todoList.innerHTML = '';
+                const filteredTodos = this.todos.filter(todo => {
+                    if (this.currentFilter === 'active') return !todo.completed;
+                    if (this.currentFilter === 'completed') return todo.completed;
+                    return true;
+                });
+                if (filteredTodos.length === 0) {
+                    const emptyMessage = document.createElement('li');
+                    emptyMessage.textContent = this.currentFilter === 'all' 
+                        ? 'No tasks yet. Add a new task!' 
+                        : `No ${this.currentFilter} tasks.`;
+                    emptyMessage.style.textAlign = 'center';
+                    emptyMessage.style.padding = '1rem';
+                    emptyMessage.style.color = '#6c757d';
+                    this.todoList.appendChild(emptyMessage);
+                    return;
+                }
+                filteredTodos.forEach((todo, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'todo-item';
+                    if (todo.completed) li.classList.add('completed');
+                    li.innerHTML = `
+                        <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-index="${index}">
+                        <span class="todo-text">${todo.text}</span>
+                        <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    `;
+                    this.todoList.appendChild(li);
+                });
+            }
+        }
+        // Product Listing
+        class ProductListing {
+            constructor() {
+                this.products = [];
+                this.filteredProducts = [];
+                this.productGrid = document.getElementById('product-grid');
+                this.categoryFilter = document.getElementById('category-filter');
+                this.priceSlider = document.getElementById('price-slider');
+                this.priceValue = document.getElementById('price-value');
+                this.sortOptions = document.getElementById('sort-options');
+                this.init();
+            }
+            async init() {
+                await this.fetchProducts();
+                this.renderProducts();
+                this.setupEventListeners();
+            }
+            async fetchProducts() {
+                try {
+                    this.productGrid.innerHTML = '<div class="loading">Loading products...</div>';
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    this.products = [
+                        { id: 1, name: 'Wireless Headphones', price: 4999.99, rating: 4.5, category: 'electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80', reviews: 128, isNew: true },
+                        { id: 2, name: 'Smart Watch', price: 8999.99, rating: 4.2, category: 'electronics', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80', reviews: 86 },
+                        { id: 3, name: 'Bluetooth Speaker', price: 2999.99, rating: 4.3, category: 'electronics', image: 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?auto=format&fit=crop&w=400&q=80', reviews: 45, isNew: true },
+                        { id: 4, name: 'Smartphone', price: 24999.99, rating: 4.9, category: 'electronics', image: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=400&q=80', reviews: 215 },
+                        { id: 5, name: 'Laptop', price: 49999.99, rating: 4.7, category: 'electronics', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=400&q=80', reviews: 178 },
+                        { id: 6, name: 'Tablet', price: 15999.99, rating: 4.4, category: 'electronics', image: 'https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=400&q=80', reviews: 92 },
+                        { id: 7, name: 'Gaming Console', price: 34999.99, rating: 4.8, category: 'electronics', image: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&w=400&q=80', reviews: 156 },
+                        { id: 8, name: 'Digital Camera', price: 22999.99, rating: 4.6, category: 'electronics', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=400&q=80', reviews: 74 },
+                        { id: 9, name: 'Wireless Earbuds', price: 3999.99, rating: 4.1, category: 'electronics', image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=400&q=80', reviews: 63, isNew: true },
+                        { id: 10, name: 'Fitness Tracker', price: 1999.99, rating: 3.9, category: 'electronics', image: 'https://images.unsplash.com/photo-1576243345690-4e4b79b63288?auto=format&fit=crop&w=400&q=80', reviews: 42 },
+                        { id: 11, name: 'Cotton T-Shirt', price: 499.99, rating: 4.0, category: 'clothing', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80', reviews: 28 },
+                        { id: 12, name: 'Jeans', price: 1499.99, rating: 3.9, category: 'clothing', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=400&q=80', reviews: 35 },
+                        { id: 13, name: 'Running Shoes', price: 3499.99, rating: 4.4, category: 'clothing', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80', reviews: 89, isNew: true },
+                        { id: 14, name: 'Leather Jacket', price: 3999.99, rating: 4.8, category: 'clothing', image: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=400&q=80', reviews: 52 },
+                        { id: 15, name: 'Sunglasses', price: 699.99, rating: 4.3, category: 'clothing', image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80', reviews: 41 },
+                        { id: 16, name: 'Winter Coat', price: 2999.99, rating: 4.5, category: 'clothing', image: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=400&q=80', reviews: 37 },
+                        { id: 17, name: 'Dress Shirt', price: 899.99, rating: 4.1, category: 'clothing', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=400&q=80', reviews: 23 },
+                        { id: 18, name: 'Sneakers', price: 2499.99, rating: 4.6, category: 'clothing', image: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=400&q=80', reviews: 68, isNew: true },
+                        { id: 19, name: 'Wool Sweater', price: 1299.99, rating: 4.2, category: 'clothing', image: 'https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&w=400&q=80', reviews: 31 },
+                        { id: 20, name: 'Baseball Cap', price: 399.99, rating: 3.8, category: 'clothing', image: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=400&q=80', reviews: 19 },
+                        { id: 21, name: 'Desk Lamp', price: 799.99, rating: 4.7, category: 'home', image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=400&q=80', reviews: 47 },
+                        { id: 22, name: 'Coffee Maker', price: 2499.99, rating: 4.6, category: 'home', image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=400&q=80', reviews: 58, isNew: true },
+                        { id: 23, name: 'Microwave Oven', price: 5999.99, rating: 4.2, category: 'home', image: 'https://images.unsplash.com/photo-1597843786271-1027c5613447?auto=format&fit=crop&w=400&q=80', reviews: 42 },
+                        { id: 24, name: 'Vacuum Cleaner', price: 7999.99, rating: 4.5, category: 'home', image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=400&q=80', reviews: 36 },
+                        { id: 25, name: 'Air Purifier', price: 5999.99, rating: 4.3, category: 'home', image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80', reviews: 29 },
+                        { id: 26, name: 'Blender', price: 1299.99, rating: 4.0, category: 'home', image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&w=400&q=80', reviews: 24 },
+                        { id: 27, name: 'Toaster', price: 999.99, rating: 3.9, category: 'home', image: 'https://images.unsplash.com/photo-1586201375761-83865001e1ef?auto=format&fit=crop&w=400&q=80', reviews: 18 },
+                        { id: 28, name: 'Electric Kettle', price: 899.99, rating: 4.1, category: 'home', image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80', reviews: 22, isNew: true },
+                        { id: 29, name: 'Rice Cooker', price: 1499.99, rating: 4.4, category: 'home', image: 'https://images.unsplash.com/photo-1586201375761-83865001e1ef?auto=format&fit=crop&w=400&q=80', reviews: 31 },
+                        { id: 30, name: 'Food Processor', price: 2999.99, rating: 4.6, category: 'home', image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&w=400&q=80', reviews: 27 },
+                        { id: 31, name: 'The Great Gatsby', price: 299.99, rating: 4.8, category: 'books', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80', reviews: 156 },
+                        { id: 32, name: 'To Kill a Mockingbird', price: 349.99, rating: 4.9, category: 'books', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80', reviews: 198 },
+                        { id: 33, name: '1984', price: 399.99, rating: 4.7, category: 'books', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80', reviews: 142, isNew: true },
+                        { id: 34, name: 'Pride and Prejudice', price: 279.99, rating: 4.6, category: 'books', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80', reviews: 112 },
+                        { id: 35, name: 'The Hobbit', price: 449.99, rating: 4.8, category: 'books', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80', reviews: 134 },
+                        { id: 36, name: 'Yoga Mat', price: 799.99, rating: 4.5, category: 'sports', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80', reviews: 47 },
+                        { id: 37, name: 'Dumbbell Set', price: 1999.99, rating: 4.7, category: 'sports', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80', reviews: 63, isNew: true },
+                        { id: 38, name: 'Tennis Racket', price: 2499.99, rating: 4.6, category: 'sports', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80', reviews: 38 },
+                        { id: 39, name: 'Basketball', price: 999.99, rating: 4.3, category: 'sports', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80', reviews: 29 },
+                        { id: 40, name: 'Football', price: 899.99, rating: 4.4, category: 'sports', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80', reviews: 34 }
+                    ];
+                    this.filteredProducts = [...this.products];
+                } catch (error) {
+                    this.productGrid.innerHTML = '<div class="error">Failed to load products. Please try again later.</div>';
+                }
+            }
+            setupEventListeners() {
+                this.categoryFilter.addEventListener('change', () => this.filterAndSortProducts());
+                this.priceSlider.addEventListener('input', () => {
+                    this.priceValue.textContent = `₹${parseInt(this.priceSlider.value).toLocaleString('en-IN')}`;
+                    this.filterAndSortProducts();
+                });
+                this.sortOptions.addEventListener('change', () => this.filterAndSortProducts());
+            }
+            filterAndSortProducts() {
+                const selectedCategory = this.categoryFilter.value;
+                const maxPrice = parseFloat(this.priceSlider.value);
+                const sortOption = this.sortOptions.value;
+                this.filteredProducts = this.products.filter(product => {
+                    const categoryMatch = selectedCategory === 'all' || product.category === selectedCategory;
+                    const priceMatch = product.price <= maxPrice;
+                    return categoryMatch && priceMatch;
+                });
+                switch(sortOption) {
+                    case 'price-asc':
+                        this.filteredProducts.sort((a, b) => a.price - b.price); break;
+                    case 'price-desc':
+                        this.filteredProducts.sort((a, b) => b.price - a.price); break;
+                    case 'rating':
+                        this.filteredProducts.sort((a, b) => b.rating - a.rating); break;
+                    case 'name-asc':
+                        this.filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
+                    case 'name-desc':
+                        this.filteredProducts.sort((a, b) => b.name.localeCompare(a.name)); break;
+                    default:
+                        this.filteredProducts.sort((a, b) => a.id - b.id);
+                }
+                this.renderProducts();
+            }
+            renderProducts() {
+                if (this.filteredProducts.length === 0) {
+                    this.productGrid.innerHTML = '<div class="no-results">No products match your filters. Try adjusting your criteria.</div>';
+                    return;
+                }
+                this.productGrid.innerHTML = '';
+                this.filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    const badge = product.isNew 
+                        ? `<span class="product-badge pulse">New!</span>` 
+                        : '';
+                    productCard.innerHTML = `
+                        ${badge}
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" loading="lazy">
+                            <div class="product-actions">
+                                <button class="action-btn" title="Add to cart"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="action-btn" title="Add to wishlist"><i class="fas fa-heart"></i></button>
+                                <button class="action-btn" title="Quick view"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">₹${product.price.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                            <div class="product-rating">
+                                ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                                <span class="reviews">(${product.reviews})</span>
+                            </div>
+                            <span class="product-category">${product.category}</span>
+                        </div>
+                    `;
+                    this.productGrid.appendChild(productCard);
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            new TodoApp();
+            new ProductListing();
+            const animateOnScroll = () => {
+                const sections = document.querySelectorAll('section');
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    if (sectionTop < windowHeight * 0.75) {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+        });
+                // Theme/background color toggle with animation
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        let themeIndex = 0;
+        const themes = [
+            'linear-gradient(120deg, #f8f9fa 0%, #e0e7ff 100%)',
+            'linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%)',
+            'linear-gradient(120deg, #b9fbc0 0%, #f72585 100%)',
+            'linear-gradient(120deg, #f8961e 0%, #43aa8b 100%)'
+        ];
+        themeToggleBtn.addEventListener('click', () => {
+            themeIndex = (themeIndex + 1) % themes.length;
+            document.body.style.background = themes[themeIndex];
+        });
+    </script>
+</body>
+</html>
